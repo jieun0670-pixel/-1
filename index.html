@@ -37,15 +37,41 @@ footer{position:relative;right:auto;bottom:auto;text-align:right;padding:20px}
 
 
 
-<style id="supporter-photo-added">
+<style id="school-stats-and-photo-addon">
 .supporter-photo{
- position:fixed; right:20px; top:20px; width:92px; height:122px;
+ position:fixed; right:18px; top:18px; width:86px; height:112px;
  border-radius:14px; overflow:hidden; border:2px solid #ff001e;
  box-shadow:0 0 18px rgba(255,0,30,.55); z-index:99999; background:#111;
 }
 .supporter-photo img{width:100%;height:100%;object-fit:cover;display:block}
 .supporter-photo .label{position:absolute;bottom:0;left:0;right:0;background:rgba(0,0,0,.75);color:#fff;font-size:9px;text-align:center;padding:3px}
-@media(max-width:700px){.supporter-photo{width:72px;height:96px;right:12px;top:12px}}
+.school-window{position:relative;margin:60px auto;max-width:1180px;padding:22px;border:1px solid rgba(255,0,30,.45);border-radius:24px;background:rgba(8,8,8,.86);box-shadow:0 0 30px rgba(255,0,30,.16)}
+.window-top{display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.dot{width:12px;height:12px;border-radius:50%;background:#ff001e;box-shadow:0 0 10px rgba(255,0,30,.7)}
+.dot:nth-child(2){background:#ff6b6b}.dot:nth-child(3){background:#fff}
+.school-window h2{font-size:clamp(28px,5vw,58px);margin:10px 0;color:#ff001e;letter-spacing:-.04em}
+.school-window .desc{color:#ddd;line-height:1.6}
+.chapter-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:22px 0}
+.chapter-card{padding:18px;border-radius:18px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.chapter-card b{display:block;color:#ff5b68;margin-bottom:8px}
+.big-num{font-size:42px;font-weight:900;color:#fff}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:20px}
+.chart-box{padding:18px;border-radius:18px;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.1)}
+.chart-box h3{margin:0 0 12px;color:#fff}
+.chart{display:flex;align-items:flex-end;gap:18px;height:230px;padding:16px 8px 30px;border-bottom:1px solid rgba(255,255,255,.25)}
+.bar-wrap{flex:1;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;gap:8px}
+.bar-value{font-weight:900;font-size:14px;color:#fff}
+.bar{width:58%;min-width:36px;border-radius:10px 10px 0 0;background:linear-gradient(180deg,#ff001e,#7a0010);box-shadow:0 0 14px rgba(255,0,30,.35)}
+.bar-label{font-size:12px;color:#ddd;text-align:center;min-height:28px;margin-top:8px}
+.hbar-row{display:grid;grid-template-columns:82px 1fr 42px;align-items:center;gap:10px;margin:13px 0}
+.hbar-track{height:18px;background:rgba(255,255,255,.1);border-radius:99px;overflow:hidden}
+.hbar-fill{height:100%;background:linear-gradient(90deg,#ff001e,#ff7a86);border-radius:99px}
+.table-wrap{max-height:360px;overflow:auto;border-radius:16px;border:1px solid rgba(255,255,255,.12);margin-top:18px}
+.school-table{width:100%;border-collapse:collapse;font-size:13px}
+.school-table th,.school-table td{padding:10px;border-bottom:1px solid rgba(255,255,255,.08);text-align:left}
+.school-table th{position:sticky;top:0;background:#140006;color:#ff8a93}
+.source-note{font-size:12px;color:#aaa;margin-top:14px}
+@media(max-width:700px){.supporter-photo{width:70px;height:92px;right:10px;top:10px}.school-window{margin:40px 12px;padding:16px}.chart{gap:8px}.bar{width:72%}}
 </style>
 
 </head><body>
@@ -86,4 +112,192 @@ const busanItems=[['부산 청년·일자리 이슈','https://news.google.com/se
 const pknuItems=[['국립부경대학교 공식 소식','https://www.pknu.ac.kr/main/163'],['부경대 연구·입시·캠퍼스 뉴스','https://news.google.com/search?q=부경대'],['부경대 사회공헌·지역협력','https://news.google.com/search?q=부경대학교%20지역협력']];
 function renderNews(id,items){document.getElementById(id).innerHTML=items.map(x=>`<div class="newsitem"><a href="${x[1]}" target="_blank">${x[0]}</a><p>클릭하면 관련 최신 기사/공식 페이지로 이동합니다.</p></div>`).join('')}renderNews('busanNews',busanItems);renderNews('pknuNews',pknuItems);
 const stats=[['복지예산',82],['노인돌봄',64],['아동복지',52],['장애인지원',46],['청년지원',38]];chart.innerHTML=stats.map(([n,v])=>`<div class="barrow"><b>${n}</b><div class="bar"><div class="fill" style="width:${v}%">${v}</div></div><span class="num">${v}%</span></div>`).join('');loadWeather();
-</script></body></html>
+</script>
+<section id="school-status" class="school-window">
+  <div class="window-top"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+  <h2>초·중학교 현황 통계</h2>
+  <p class="desc">서울특별시강서양천교육지원청 관할 초·중학교 현황 자료를 장별로 정리했습니다. 각 그래프에는 숫자가 항상 보이도록 표시했습니다.</p>
+
+  <div class="chapter-grid">
+    <div class="chapter-card"><b>제1장 전체 학교 수</b><div class="big-num">105</div><span>개교</span></div>
+    <div class="chapter-card"><b>제2장 지역 구분</b><div class="big-num">2</div><span>강서구, 양천구</span></div>
+    <div class="chapter-card"><b>제3장 학교급 구분</b><div class="big-num">2</div><span>초등학교·중학교</span></div>
+    <div class="chapter-card"><b>제4장 설립 구분</b><div class="big-num">2</div><span>공립·사립</span></div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="chart-box">
+      <h3>제1장 학교급별 현황</h3>
+      <div class="chart" id="levelChart"></div>
+    </div>
+    <div class="chart-box">
+      <h3>제2장 지역별 학교 현황</h3>
+      <div id="regionLevelChart"></div>
+    </div>
+    <div class="chart-box">
+      <h3>제3장 설립 유형별 현황</h3>
+      <div class="chart" id="foundationChart"></div>
+    </div>
+    <div class="chart-box">
+      <h3>제4장 지역별 설립 유형</h3>
+      <div id="regionFoundationChart"></div>
+    </div>
+  </div>
+
+  <div class="chart-box" style="margin-top:18px">
+    <h3>제5장 학교 목록</h3>
+    <div class="table-wrap">
+      <table class="school-table">
+        <thead><tr><th>지역</th><th>구분</th><th>설립</th><th>학교명</th><th>교무실</th></tr></thead>
+        <tbody><tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울가곡초등학교</td><td>02-2661-5995</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울가양초등학교</td><td>02-2668-2101</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울갈산초등학교</td><td>02-2649-7232</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울강서초등학교</td><td>02-2091-6600</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울강신초등학교</td><td>02-2697-3035</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울강월초등학교</td><td>02-2605-0501</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울개화초등학교</td><td>02-2662-0492</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울경인초등학교</td><td>02-2647-2568</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울계남초등학교</td><td>02-2645-8754</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울공진초등학교</td><td>02-2223-2300</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울공항초등학교</td><td>02-2664-1176</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울남명초등학교</td><td>02-2607-5092</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울내발산초등학교</td><td>02-3662-7565</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등마초등학교</td><td>02-2642-0232</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등명초등학교</td><td>02-2658-3693</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등서초등학교</td><td>02-2695-4555</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등양초등학교</td><td>02-2658-0072</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등원초등학교</td><td>02-2658-2233</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등촌초등학교</td><td>02-2653-9374</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울등현초등학교</td><td>02-2658-7851</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울목동초등학교</td><td>02-2645-6356</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울목운초등학교</td><td>02-2061-5212</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울목원초등학교</td><td>02-2643-5771</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울발산초등학교</td><td>02-2664-7502</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울방화초등학교</td><td>02-2663-2421</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울백석초등학교</td><td>02-3661-3237</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울삼정초등학교</td><td>02-2661-2273</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울서정초등학교</td><td>02-2648-7003</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울송정초등학교</td><td>02-2662-0016</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울송화초등학교</td><td>02-2665-7093</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울수명초등학교</td><td>070-4626-6600</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신강초등학교</td><td>02-2608-2567</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울신곡초등학교</td><td>02-2643-2248</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신기초등학교</td><td>02-2601-1594</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신남초등학교</td><td>02-2697-5822</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신목초등학교</td><td>02-2649-8497</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신서초등학교</td><td>02-2648-0878</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신원초등학교</td><td>02-2608-4675</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울신월초등학교</td><td>02-2699-4785</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울신은초등학교</td><td>02-6210-0600</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울신정초등학교</td><td>02-2602-3940</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울양강초등학교</td><td>02-2698-1214</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울양동초등학교</td><td>02-2602-5101</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울양명초등학교</td><td>02-2646-1598</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울양목초등학교</td><td>02-2696-4115</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울양원초등학교</td><td>02-2696-6357</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울양천초등학교</td><td>02-3663-0006</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울양화초등학교</td><td>02-2646-3510</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울염경초등학교</td><td>02-3662-0773</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울염동초등학교</td><td>02-3664-1671</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울염창초등학교</td><td>02-3664-0492</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울영도초등학교</td><td>02-2647-2387</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울우장초등학교</td><td>02-2603-9989</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울월정초등학교</td><td>02-2694-2006</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울월촌초등학교</td><td>02-2647-3666</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울은정초등학교</td><td>02-2645-6871</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울장수초등학교</td><td>02-6090-9800</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울정곡초등학교</td><td>02-2666-6442</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울정목초등학교</td><td>02-2644-0840</td></tr>
+<tr><td>양천구</td><td>초등학교</td><td>공립</td><td>서울지향초등학교</td><td>02-2066-1187</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울치현초등학교</td><td>02-2661-6272</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울탑산초등학교</td><td>02-2659-5101</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울화곡초등학교</td><td>02-2699-3328</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>공립</td><td>서울화일초등학교</td><td>02-2603-6502</td></tr>
+<tr><td>강서구</td><td>초등학교</td><td>사립</td><td>유석초등학교</td><td>02-3661-6718</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>강신중학교</td><td>02-2694-9623</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>경서중학교</td><td>02-2668-0304</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>공항중학교</td><td>02-2662-0471</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>금옥중학교</td><td>02-2696-1202</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>등명중학교</td><td>02-2658-2727</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>등원중학교</td><td>02-2658-2707</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>마곡중학교</td><td>02-2666-8502</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>마곡하늬중학교</td><td>02-6985-5900</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>목동중학교</td><td>02-2643-1103</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>목운중학교</td><td>02-2651-4060</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>목일중학교</td><td>02-2646-0553</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>방원중학교</td><td>02-2666-6014</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>방화중학교</td><td>02-2662-4452</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>백석중학교</td><td>02-2644-2886</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>삼정중학교</td><td>02-2666-6033</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>성재중학교</td><td>02-2658-9853</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>송정중학교</td><td>02-2661-0478</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>수명중학교</td><td>02-6738-1200</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>신남중학교</td><td>02-2602-7353</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>신목중학교</td><td>02-2648-2142</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>신서중학교</td><td>02-2654-8011</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>신원중학교</td><td>02-2699-0183</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>신월중학교</td><td>02-2601-4254</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>양강중학교</td><td>02-2691-0869</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>양동중학교</td><td>02-2648-3638</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>양서중학교</td><td>02-6273-8106</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>양천중학교</td><td>02-2694-2715</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>염경중학교</td><td>02-3661-6252</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>염창중학교</td><td>02-3661-9756</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>공립</td><td>월촌중학교</td><td>02-2648-8570</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>공립</td><td>화원중학교</td><td>02-811-2000</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>사립</td><td>덕원중학교</td><td>02-2660-7955</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>사립</td><td>등촌중학교</td><td>02-2653-0392</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>사립</td><td>마포중학교</td><td>02-3663-2591</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>사립</td><td>명덕여자중학교</td><td>02-2664-8813</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>사립</td><td>봉영여자중학교</td><td>02-2648-7123</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>사립</td><td>신정여자중학교</td><td>02-2644-3549</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>사립</td><td>양정중학교</td><td>02-2649-7077</td></tr>
+<tr><td>양천구</td><td>중학교</td><td>사립</td><td>영도중학교</td><td>02-2643-0242</td></tr>
+<tr><td>강서구</td><td>중학교</td><td>사립</td><td>화곡중학교</td><td>070-8644-6400</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+
+  <p class="source-note">출처: 공공데이터포털, 서울특별시교육청 서울특별시강서양천교육지원청_초중학교 현황_20250909. 원자료 파일: school_status_20250909.csv</p>
+</section>
+<script id="school-stats-script">
+const levelData = [{"type": "초등학교", "count": 65}, {"type": "중학교", "count": 40}];
+const regionLevelData = [{"지역": "강서구", "초중구분": "중학교", "count": 22}, {"지역": "강서구", "초중구분": "초등학교", "count": 35}, {"지역": "양천구", "초중구분": "중학교", "count": 18}, {"지역": "양천구", "초중구분": "초등학교", "count": 30}];
+const foundationData = [{"type": "공립", "count": 95}, {"type": "사립", "count": 10}];
+const regionFoundationData = [{"지역": "강서구", "설립": "공립", "count": 50}, {"지역": "강서구", "설립": "사립", "count": 7}, {"지역": "양천구", "설립": "공립", "count": 45}, {"지역": "양천구", "설립": "사립", "count": 3}];
+
+function drawColumnChart(id, data, labelKey='type', valueKey='count'){
+  const max = Math.max(...data.map(d=>d[valueKey]));
+  const el = document.getElementById(id);
+  if(!el) return;
+  el.innerHTML = data.map(d => {
+    const h = Math.max(10, d[valueKey] / max * 165);
+    return `<div class="bar-wrap">
+      <div class="bar-value">${d[valueKey]}</div>
+      <div class="bar" style="height:${h}px"></div>
+      <div class="bar-label">${d[labelKey]}</div>
+    </div>`;
+  }).join('');
+}
+
+function drawGroupedHorizontal(id, data, groupKey, subKey){
+  const el = document.getElementById(id);
+  if(!el) return;
+  const max = Math.max(...data.map(d=>d.count));
+  el.innerHTML = data.map(d => {
+    const w = Math.max(6, d.count / max * 100);
+    return `<div class="hbar-row">
+      <div>${d[groupKey]} · ${d[subKey]}</div>
+      <div class="hbar-track"><div class="hbar-fill" style="width:${w}%"></div></div>
+      <b>${d.count}</b>
+    </div>`;
+  }).join('');
+}
+
+drawColumnChart('levelChart', levelData);
+drawGroupedHorizontal('regionLevelChart', regionLevelData, '지역', '초중구분');
+drawColumnChart('foundationChart', foundationData);
+drawGroupedHorizontal('regionFoundationChart', regionFoundationData, '지역', '설립');
+</script>
+
+</body></html>
